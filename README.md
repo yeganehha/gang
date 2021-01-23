@@ -34,29 +34,29 @@ git clone https://github.com/yeganehha/gang [gang]/gang
 ## Installation
 - Import `gang.sql` in your database
 - Sync BaseFunction.lua with your core (If your core is not ESX or QBus)
--  * If your core is not ESX or QBus replace 
-	```
-	server_script 'esxBaseFunction.lua'
-	client_script 'esxBaseFunction.lua'
-	```
-	with 
-	```
-	server_script 'BaseFunction.lua'
-	client_script 'BaseFunction.lua'
-	```
-	in end of `__resource.lua`
+   * If your core is not ESX or QBus replace 
+		```
+		server_script 'esxBaseFunction.lua'
+		client_script 'esxBaseFunction.lua'
+		```
+		with 
+		```
+		server_script 'BaseFunction.lua'
+		client_script 'BaseFunction.lua'
+		```
+		in end of `__resource.lua`
 
    * If your core is QBus replace
-	```
-	server_script 'esxBaseFunction.lua'
-	client_script 'esxBaseFunction.lua'
-	```
-	with 
-	```
-	server_script 'BaseFunction.lua'
-	client_script 'BaseFunction.lua'
-	```
-	in end of `__resource.lua`
+		```
+		server_script 'esxBaseFunction.lua'
+		client_script 'esxBaseFunction.lua'
+		```
+		with 
+		```
+		server_script 'BaseFunction.lua'
+		client_script 'BaseFunction.lua'
+		```
+		in end of `__resource.lua`
 
 - Add this to your server.cfg:
 
@@ -64,8 +64,24 @@ git clone https://github.com/yeganehha/gang [gang]/gang
 add_ace resource.gang command.add_ace allow
 start gang
 ```
+- Add this to your server.cfg:
+
+```
+add_principal identifier.steam:xxxxxxxxxx group.gangManager
+add_ace resource.gang command.add_ace allow
+start gang
+```
+change `xxxxxxxxxx` to your steam hex to access manage gangs 
 
 - If you want change config you should modify `config.lua` file
+
+- Restart your Fivem Server
+
+- go in your server and use `/gangs` command (if not change from `config.lua`) to open admin menu
+
+- in creat gang, dont forget add expire time and other configuration
+
+- palyer can use `/gang` command to refresh gang data in client
 
 
 ## exports
