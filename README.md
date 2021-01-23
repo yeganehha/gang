@@ -4,7 +4,7 @@ This stand a lone resource adds Gang System with armories, vehicle garages and a
 Developed by [Erfan Ebrahimi](http://erfanebrahimi.ir)
 
 ## Demo
-you can sea video of this script in [YouTube](https://youtu.be/8UXcP-31kyE)
+you can sea video of this script in [YouTube](https://www.youtube.com/watch?v=7YaAn2Q8k2A)
 
 ### Requirements
 * This stand a lone resource and nothing required
