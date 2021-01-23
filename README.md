@@ -73,7 +73,7 @@ you can use bellow exports in other client files
 
  | export	                      	| description                  			| usage 						| Example 																|
  |------------------------------	|---------------------------------------|-------------------------------|-----------------------------------------------------------------------|
- | isOwnGangVehicle                 | check is vehicle related Player Gang	| for lock or unlock cars door	| exports['gang']:isOwnGangVehicle(GetVehiclePedIsIn(PlayerPedId()))	|
+ | isOwnGangVehicle                 | check is vehicle related Player Gang	| for lock or unlock cars door	| local vehicle = GetVehiclePedIsIn(PlayerPedId()) exports['gang']:isOwnGangVehicle(vehicle)	|
  | getGangID					 	| Get Playr Gang ID						| Any Where You Want      		| exports['gang']:getGangID()											|
  | getGangGrade                     | Get Playr Gang Grade (0 for boss)		| Any Where You Want        	| exports['gang']:getGangGrade()										|
  | getGangName                    	| Get Playr Gang Name 					| in HUD or Any Where You Want	| exports['gang']:getGangName()											|
