@@ -45,5 +45,8 @@ export 'getGangGradeName'
 
 
 
-server_script 'esxBaseFunction.lua'
+server_scripts {
+	'@mysql-async/lib/MySQL.lua',
+	'esxBaseFunction.lua'
+}
 client_script 'esxBaseFunction.lua'

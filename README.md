@@ -61,12 +61,6 @@ git clone https://github.com/yeganehha/gang [gang]/gang
 - Add this to your server.cfg:
 
 ```
-add_ace resource.gang command.add_ace allow
-start gang
-```
-- Add this to your server.cfg:
-
-```
 add_principal identifier.steam:xxxxxxxxxx group.gangManager
 add_ace resource.gang command.add_ace allow
 start gang
