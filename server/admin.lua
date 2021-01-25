@@ -39,9 +39,6 @@ AddEventHandler('Erfan:gang:creatNewGang', function(gangName)
 	if IsPlayerAceAllowed(_Source, "gang.admin") then
 		executeOnDB('INSERT INTO `gangs` (`gangName`,`expireTime`,`coords`,`inventory`) VALUES (@gangName,NOW(),"{}","{}")', { ['@gangName'] 	 = gangName } , function(e)
 			local gangs = selectFromDB("SELECT * , DATE_FORMAT(expireTime, '%Y/%m/%d') as expireTimeFormat FROM gangs", {})
-			print(json.encode(gangs))
-			print(json.encode(gangs[#gangs]))
-			print(json.encode(gangs[#gangs].id))
 			executeOnDB('INSERT INTO `gangs_grade` (`gangId`,`grade`,`name`,`salary`,`maleSkin`,`femaleSkin`) VALUES (@gangId,0,"boss","100","{}","{}")', {
 				['@gangId'] 	 = gangs[#gangs].id 
 			} , function(e)end)
@@ -91,6 +88,10 @@ AddEventHandler('Erfan:gang:updateGangcoords', function(gangId , variable , valu
 		local gang = selectFromDB("SELECT * , DATE_FORMAT(expireTime, '%Y/%m/%d') as expireTimeFormat FROM gangs WHERE id = @gangId", { ['@gangId']  = gangId })
 		if gang ~= nil and gang[1] ~= nil and gang[1].id == gangId then
 			local coords = json.decode(gang[1].coords)
+			if type(value) == 'vector3' then
+				local x1,y1,z1 = table.unpack(value)
+				value = { x = x1 , y =y1 , z = z1 }
+			end
 			coords[variable] = value
 			local coordsStr = json.encode(coords)
 			gang[1].coords = coordsStr
