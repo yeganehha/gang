@@ -391,6 +391,7 @@ AddEventHandler('Erfan:gang:openGarageMenu', function(Vehicles ,canStoredInGarag
 								end
 							end
 							DeleteEntity(vehicle)
+							TriggerServerEvent('Erfan:gang:setVehicleProperties', vehicleProperties.plate, vehicleProperties )
 							TriggerServerEvent('Erfan:gang:setVehicleStatus', vehicleProperties.plate, true)
 							canStoredInGarage = false
 						end

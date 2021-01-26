@@ -106,6 +106,12 @@ AddEventHandler('Erfan:gang:setVehicleStatus', function(plate , status )
 end)
 
 
+RegisterServerEvent('Erfan:gang:setVehicleProperties')
+AddEventHandler('Erfan:gang:setVehicleProperties', function(plate , vehicleProperties )
+	executeOnDB('UPDATE `gangs_vehicle` SET  `vehicle` = @vehicle WHERE `plate` = @plate', {['@plate'] 	 = plate , ['@vehicle'] =  json.encode(vehicleProperties) } , function(e)end)
+end)
+
+
 RegisterServerEvent('Erfan:gang:payImpound')
 AddEventHandler('Erfan:gang:payImpound', function(Vehicle ,Vehicles ,canInsertToGarage ,  vehicleProperties )
 	local _Source = source
