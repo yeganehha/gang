@@ -113,7 +113,7 @@ end
 
 RegisterNetEvent('Erfan:gang:forceBlipGangMember')
 AddEventHandler('Erfan:gang:forceBlipGangMember', function(gangMember , gangId )
-	if myGangId ~= nil and myGangId == gangId and activeGangs[gangId].haveGPS == 1 then
+	if myGangId ~= nil and gangId ~= nil and myGangId == gangId and activeGangs[gangId] ~= nil and activeGangs[gangId].haveGPS == 1 then
 		-- Refresh all blips
 		for k, existingBlip in pairs(blipsMembers) do
 			RemoveBlip(existingBlip)
