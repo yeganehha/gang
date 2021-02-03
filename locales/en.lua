@@ -15,7 +15,6 @@ Locales['en'] = {
   ['add_gang_expire_day']      = 'how meny days you want to add from today ?',
   ['edit_gang_money']          = 'Add Or Rediuce Gang Account Money!',
   ['new_gang_account_money']   = 'Enter New Account Money:',
-  ['gang_name']                = 'Enter Days to expire:',
   ['Blips_settting']           = 'Blips settting',
   ['edit_Blips_settting']      = 'Edit Blip Of Gang',
   ['coords_settting']          = 'coords',

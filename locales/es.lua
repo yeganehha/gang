@@ -15,7 +15,6 @@ Locales['es'] = {
   ['add_gang_expire_day']      = 'Cuantos días quieres añadir desde hoy ?',
   ['edit_gang_money']          = 'Añadir o quitar dinaro a la Mafia!',
   ['new_gang_account_money']   = 'Introduce Cuanto dinero tiene la Mafia:',
-  ['gang_name']                = 'Introduce dias hasta que caduque:',
   ['Blips_settting']           = 'Blips ajustes',
   ['edit_Blips_settting']      = 'Editar el blip de la Mafia',
   ['coords_settting']          = 'Ubicaciones',
