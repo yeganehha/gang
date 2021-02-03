@@ -82,6 +82,7 @@ AddEventHandler('Erfan:gang:searchBody', function(target)
 	end
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , g.canSearch FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].canSearch then
+		TriggerClientEvent('Erfan:gang:sendNotficationFromPlayer',target,_Source,'', ''  , _U('you_have_been_robberd') , 'CHAR_SOCIAL_CLUB' , 2 )
 		TriggerClientEvent('Erfan:gang:searchBody',_Source, OpenPlayerInventory(target) , target )
 	else
 		print(('^1[GNAG SYSTEM]: %s or ID: %s attempted to search a player that ID:%s (not Gang)!'):format(identifier,_Source,target))

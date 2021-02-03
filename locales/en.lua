@@ -177,4 +177,5 @@ Locales['en'] = {
   ['discord_deposit_des']    = '%s\n\n**Player Name :** %s \n\n**Item and amount :** %s\n\n%s',
   ['have_deposited']         = 'You Deposited $%s',
   ['have_withdrawn']         = 'You withdraw $%s',
+  ['you_have_been_robberd']  = 'you are being ~r~robbed~w~!',
 }
