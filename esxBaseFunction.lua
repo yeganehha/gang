@@ -195,7 +195,7 @@ end
 
 function isOwnedvehicle(source , vehicleProps)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local result = MySQL.Sync.fetchAll('SELECT plate FROM owned_vehicles WHERE owner = @owner AND plate = @plate AND ( job Is null or job = "" )', {
+	local result = MySQL.Sync.fetchAll('SELECT plate FROM owned_vehicles WHERE owner = @owner AND plate = @plate AND ( job Is null or job = "" or job = "civ" )', {
 		['@owner'] = xPlayer.identifier,
 		['@plate'] = vehicleProps.plate
 	})
@@ -208,7 +208,7 @@ end
 
 function deleteOwnedvehicle(source , vehicleProps)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	MySQL.Async.execute('DELETE FROM owned_vehicles WHERE owner = @owner AND plate = @plate AND ( job Is null or job = "" )', {
+	MySQL.Async.execute('DELETE FROM owned_vehicles WHERE owner = @owner AND plate = @plate AND ( job Is null or job = "" or job = "civ" )', {
 		['@owner'] = xPlayer.identifier,
 		['@plate'] = vehicleProps.plate
 	} , function(e)  end)
