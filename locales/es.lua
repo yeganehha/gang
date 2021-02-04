@@ -1,3 +1,6 @@
+------------------------------
+-- Translated by : @japanxx https://forum.cfx.re/u/japanxx
+------------------------------
 Locales['es'] = {
   ['not_acces']                = 'Permisos no válidos',
   ['admin_menu_title']         = 'Gestión de mafias',
