@@ -133,9 +133,13 @@ function openGangAction(closestPlayer , closestPlayerDistance)
 					RageUI.Button( _U('cuff_uncuff'), _U('cuff_uncuff_help') , {}, true, {
 						onSelected = function()
 							if ( closestPlayerDistance <= Config.MaxGangActionDistance ) then
-								whileGoActionMenu = false
-								TriggerServerEvent('Erfan:gang:handcuff',GetPlayerServerId(closestPlayer))
 								RageUI.Visible(gangActionMenu, false)
+								whileGoActionMenu = false
+								if ( Config.handCuffAnimation ) then
+									TriggerServerEvent('Erfan:gang:handcuffAnimation', GetPlayerServerId(closestPlayer))
+									Citizen.Wait(3100)
+								end
+								TriggerServerEvent('Erfan:gang:handcuff',GetPlayerServerId(closestPlayer))
 							else
 								TriggerEvent('Erfan:gang:sendNotfication', activeGangs[myGangId].gangName, ''  , _U('no_player_nearby') , 'CHAR_BLOCKED' , 2 )
 							end
@@ -222,6 +226,31 @@ end
 
 
 local isHandcuffed = false
+RegisterNetEvent('Erfan:gang:handcuffAnimation')
+AddEventHandler('Erfan:gang:handcuffAnimation', function(gangMemberId)
+	if gangMemberId ~= nil then
+		local playerPed = GetPlayerPed(-1)
+		local targetPed = GetPlayerPed(GetPlayerFromServerId(gangMemberId))
+		RequestAnimDict('mp_arrest_paired')
+		while not HasAnimDictLoaded('mp_arrest_paired') do
+			Citizen.Wait(10)
+		end
+
+		AttachEntityToEntity(GetPlayerPed(-1), targetPed, 11816, -0.1, 0.45, 0.0, 0.0, 0.0, 20.0, false, false, false, false, 20, false)
+		TaskPlayAnim(playerPed, 'mp_arrest_paired', 'crook_p2_back_left', 8.0, -8.0, 5500, 33, 0, false, false, false)
+
+		Citizen.Wait(950)
+		DetachEntity(GetPlayerPed(-1), true, false)
+	else
+		local playerPed = GetPlayerPed(-1)
+		RequestAnimDict('mp_arrest_paired')
+		while not HasAnimDictLoaded('mp_arrest_paired') do
+			Citizen.Wait(10)
+		end
+		TaskPlayAnim(playerPed, 'mp_arrest_paired', 'cop_p2_back_left', 8.0, -8.0, 5500, 33, 0, false, false, false)
+	end
+end)
+
 RegisterNetEvent('Erfan:gang:handcuff')
 AddEventHandler('Erfan:gang:handcuff', function()
 	isHandcuffed = not isHandcuffed

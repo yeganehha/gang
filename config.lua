@@ -66,7 +66,7 @@ Config.gangVehicleDoorLock = 303 -- Button on keyboard that press, the vehicle d
 
 Config.OpenActionMenu = 166 -- Button on keyboard that press, the gang action menu opend ( https://docs.fivem.net/docs/game-references/controls/ )
 Config.MaxGangActionDistance = 3 -- max distance beatween Gang Memeber and player(vehicle) for drag , cuff , search and ....
-
+Config.handCuffAnimation = false -- hand cuff/uncuff show with animation
 
 
 Config.vehicleConvertor = { -- coords of place that is for impound and add vehicle to gang

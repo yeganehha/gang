@@ -1,3 +1,8 @@
+RegisterNetEvent('Erfan:gang:handcuffAnimation')
+AddEventHandler('Erfan:gang:handcuffAnimation', function(target)
+	TriggerClientEvent('Erfan:gang:handcuffAnimation', target, source)
+	TriggerClientEvent('Erfan:gang:handcuffAnimation', source , nil )
+end)
 
 RegisterNetEvent('Erfan:gang:handcuff')
 AddEventHandler('Erfan:gang:handcuff', function(target)
