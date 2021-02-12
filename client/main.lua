@@ -10,29 +10,20 @@ function getGangGrade()
 end
 function getGangName()
 	if myGangId ~= nil and activeGangs[myGangId] then
-		return activeGangs[myGangId].name
+		return activeGangs[myGangId].gangName
 	else
 		return ''
 	end
 end
 
 
-local waitForResponseGradeName = true
+
 myGangGradeName = ''
 RegisterNetEvent('Erfan:gang:getGangGradeName')
 AddEventHandler('Erfan:gang:getGangGradeName', function(name)
 	myGangGradeName = name
-	waitForResponseGradeName = false
 end)
 function getGangGradeName()
-	myGangGradeName = ''
-	waitForResponseGradeName = true
-	TriggerServerEvent('Erfan:gang:getGangGradeName', myGangId,myGangGrade)
-	local k = 0
-	while waitForResponseGradeName and k < 1000 do
-		k = k + 1 
-		Citizen.Wait(10)
-	end
 	return myGangGradeName 
 end
 
@@ -91,6 +82,10 @@ RegisterNetEvent('Erfan:gang:setGang')
 AddEventHandler('Erfan:gang:setGang', function(gangId , gradeId)
 	myGangId = gangId
 	myGangGrade = gradeId
+	if activeGangs[gangId].haveGPS == 1 then
+		TriggerServerEvent("Erfan:gang:forceBlipGangMemberGet",gangId)
+	end
+	TriggerServerEvent('Erfan:gang:getGangGradeName', myGangId,myGangGrade)
 	checkActionMenuPressed()
 	redrawBlips()
 end)
@@ -116,6 +111,7 @@ AddEventHandler('Erfan:gang:setGangData', function(gangsData , gangId , gradeId 
 	if gangId > -2 and gradeId > -2 then
 		myGangId = gangId
 		myGangGrade = gradeId
+		TriggerServerEvent('Erfan:gang:getGangGradeName', myGangId,myGangGrade)
 	end
 	checkActionMenuPressed()
 	redrawBlips()

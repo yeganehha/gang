@@ -539,10 +539,11 @@ end)
 
 RegisterServerEvent('Erfan:gang:getGangGradeName')
 AddEventHandler('Erfan:gang:getGangGradeName', function(gangId , grade)
+	local _Source = source
 	local gang = selectFromDB("SELECT name FROM gangs_grade Where gangId = @gangId and grade = @grade ", { ['@gangId']  = gangId , ['@grade'] = grade })
 	if gang ~= nil and gang[1] ~= nil then
 		TriggerClientEvent('Erfan:gang:getGangGradeName',_Source,gang[1].name )
 	else
-		TriggerClientEvent('Erfan:gang:getGangGradeName',_Source,gang[1].name )
+		TriggerClientEvent('Erfan:gang:getGangGradeName',_Source,'' )
 	end
 end)
