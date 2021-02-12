@@ -238,6 +238,15 @@ AddEventHandler('Erfan:gang:handcuff', function()
 		SetPedCanPlayGestureAnims(playerPed, false)
 		FreezeEntityPosition(playerPed, true)
 		DisplayRadar(false)
+		Citizen.CreateThread(function()
+			while isHandcuffed do
+				Citizen.Wait(0)
+				DisableAllControlActions(0)
+				EnableControlAction(0, 47, true)
+				EnableControlAction(0, 245, true)
+				EnableControlAction(0, 38, true)
+			end
+		end)
 	else
 		ClearPedSecondaryTask(playerPed)
 		SetEnableHandcuffs(playerPed, false)
@@ -245,6 +254,7 @@ AddEventHandler('Erfan:gang:handcuff', function()
 		SetPedCanPlayGestureAnims(playerPed, true)
 		FreezeEntityPosition(playerPed, false)
 		DisplayRadar(true)
+		isDraged = false
 	end
 end)
 
