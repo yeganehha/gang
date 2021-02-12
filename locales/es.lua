@@ -181,4 +181,6 @@ Locales['es'] = {
   ['have_deposited']         = 'Has depositado $%s',
   ['have_withdrawn']         = 'Has retirado $%s',
   ['you_have_been_robberd']  = 'te están ~r~robando~w~!',
+  ['pay_impound_price']      = 'Pagas %s por encontrar tu vehículo!',
+  ['cant_spawn_impound']     = 'No podemos encontrar su vehículo!',
 }
