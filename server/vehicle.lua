@@ -1,3 +1,5 @@
+local vehicleImpoundSpawn = {}
+
 RegisterServerEvent('Erfan:gang:openImpoundMenu')
 AddEventHandler('Erfan:gang:openImpoundMenu', function(typeVehicle,vehicleProperties)
 	local _Source = source
@@ -92,6 +94,7 @@ AddEventHandler('Erfan:gang:addVehicle', function(vehicleProperties )
 		} , function(e)
 			deleteOwnedvehicle(_Source,lastVehicleProperties)
 			TriggerClientEvent('Erfan:gang:sendNotfication',_Source,'[Gang System]', ''  , _U('vehicle_add') , 'CHAR_SOCIAL_CLUB' , 2 )
+			vehicleImpoundSpawn[vehicleProperties.plate] = os.time()
 		end)
 	else
 		TriggerClientEvent('Erfan:gang:sendNotfication',_Source,'[Gang System]', ''  , _U('not_acces') , 'CHAR_BLOCKED' , 2 )
@@ -103,6 +106,9 @@ end)
 RegisterServerEvent('Erfan:gang:setVehicleStatus')
 AddEventHandler('Erfan:gang:setVehicleStatus', function(plate , status )
 	executeOnDB('UPDATE `gangs_vehicle` SET  `stored` = @status WHERE `plate` = @plate', {['@plate'] 	 = plate , ['@status'] 	 = status } , function(e)end)
+	if not status then
+		vehicleImpoundSpawn[plate] = os.time()
+	end
 end)
 
 
@@ -115,10 +121,18 @@ end)
 RegisterServerEvent('Erfan:gang:payImpound')
 AddEventHandler('Erfan:gang:payImpound', function(Vehicle ,Vehicles ,canInsertToGarage ,  vehicleProperties )
 	local _Source = source
-	if setPlayerMoney(_Source, Config.impoundPrice , 'remove') then
-		TriggerClientEvent('Erfan:gang:spawnVehicle',_Source,Vehicle )
+	if vehicleImpoundSpawn[Vehicle.plate] == nil or ( vehicleImpoundSpawn[Vehicle.plate] ~= nil and os.time() - vehicleImpoundSpawn[Vehicle.plate] > Config.impoundReSpawnTime ) then 
+		if setPlayerMoney(_Source, Config.impoundPrice , 'remove') then
+			TriggerClientEvent('Erfan:gang:spawnVehicle',_Source,Vehicle )
+			vehicleImpoundSpawn[Vehicle.plate] = os.time()
+			TriggerClientEvent('Erfan:gang:sendNotfication',_Source,'[Gang System]', ''  , _U('pay_impound_price' , Config.impoundPrice ) , 'CHAR_SOCIAL_CLUB' , 2 )
+		else
+			TriggerClientEvent('Erfan:gang:sendNotfication',_Source,'[Gang System]', ''  , _U('dont_have_enough_money') , 'CHAR_SOCIAL_CLUB' , 2 )
+			Wait(50)
+			TriggerClientEvent('Erfan:gang:openImpoundMenu', _Source , Vehicles ,canInsertToGarage ,  vehicleProperties )
+		end
 	else
-		TriggerClientEvent('Erfan:gang:sendNotfication',_Source,'[Gang System]', ''  , _U('dont_have_enough_money') , 'CHAR_SOCIAL_CLUB' , 2 )
+		TriggerClientEvent('Erfan:gang:sendNotfication',_Source,'[Gang System]', ''  , _U('cant_spawn_impound') , 'CHAR_SOCIAL_CLUB' , 2 )
 		Wait(50)
 		TriggerClientEvent('Erfan:gang:openImpoundMenu', _Source , Vehicles ,canInsertToGarage ,  vehicleProperties )
 	end

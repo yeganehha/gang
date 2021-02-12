@@ -75,6 +75,7 @@ Config.vehicleConvertor = { -- coords of place that is for impound and add vehic
 }
 
 Config.impoundPrice = 5000 -- price for re spawn vehicle
+Config.impoundReSpawnTime = 10 * 60 -- how meny time lenght too player can get vehicle from impound ( second )
 Config.fixSpawnVehicle = false -- fix vehicle when spawn from garage
 Config.PlateUseSpace = false -- use space in vehicle plate 
 Config.PlateLetters = 3 -- how meny letters use in vehicle plate
@@ -83,5 +84,5 @@ Config.PlateNumbers = 3 -- how meny numbers use in vehicle plate
 Config.PaySalaryInterval = 10 -- how meny time lenght too pay salary
 
 Config.activeDiscordHook = true  -- send log of gang armory action to discord
-Config.discordHookStartWith = '**Spiral RP**' -- Start Discord Log with 
-Config.discordHookSignature = 'Have good time in Spiral RP' -- Signature of discord log
+Config.discordHookStartWith = '**Server Name**' -- Start Discord Log with 
+Config.discordHookSignature = 'Have good time in Server Name' -- Signature of discord log
