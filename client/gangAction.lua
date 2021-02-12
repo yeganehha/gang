@@ -255,6 +255,7 @@ AddEventHandler('Erfan:gang:handcuff', function()
 		FreezeEntityPosition(playerPed, false)
 		DisplayRadar(true)
 		isDraged = false
+		DetachEntity(playerPed, true, false)
 	end
 end)
 
