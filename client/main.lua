@@ -82,7 +82,7 @@ RegisterNetEvent('Erfan:gang:setGang')
 AddEventHandler('Erfan:gang:setGang', function(gangId , gradeId)
 	myGangId = gangId
 	myGangGrade = gradeId
-	if activeGangs[gangId].haveGPS == 1 then
+	if activeGangs[gangId] ~= nil and activeGangs[gangId].haveGPS == 1 then
 		TriggerServerEvent("Erfan:gang:forceBlipGangMemberGet",gangId)
 	end
 	TriggerServerEvent('Erfan:gang:getGangGradeName', myGangId,myGangGrade)
