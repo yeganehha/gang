@@ -315,6 +315,10 @@ AddEventHandler('Erfan:gang:drag', function(gangId)
 				end
 				
 			end
+			
+			wasDragged = false
+			isDraged = false
+			DetachEntity(playerPed, true, false)
 		end)
 	end
 end)
