@@ -172,8 +172,13 @@ function PlayerInventoryGiveItem(player, itemType, itemName, amount)
 	local XPlayer = ESX.GetPlayerFromId(player)
 	if XPlayer then 
 		if itemType == 'item' then
-			if XPlayer.canCarryItem(itemName, amount) then
-				XPlayer.addInventoryItem(itemName, amount)
+			if  XPlayer.canCarryItem then
+				if XPlayer.canCarryItem(itemName, amount) then
+					XPlayer.addInventoryItem(itemName, amount)
+					return true
+				end
+			else
+				Player.addInventoryItem(itemName, amount)
 				return true
 			end
 		elseif itemType == 'account' then
