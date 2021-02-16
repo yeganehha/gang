@@ -168,7 +168,7 @@ function openGangDataSubMenu(gangId,_key , gangsData )
 						local accountMoney = GetOnscreenKeyboardResult()
 						if ( accountMoney ~= nil ) then
 							accountMoney = tonumber(accountMoney)
-							if accountMoney ~= '' and accountMoney >= 0  then 
+							if accountMoney ~= '' and accountMoney ~= nil and accountMoney >= 0  then 
 								whileGoSubMenu = false
 								TriggerServerEvent("Erfan:gang:updateGangData", gang.id , 'accountMoney' , accountMoney )
 								Citizen.Wait(50)
@@ -187,7 +187,7 @@ function openGangDataSubMenu(gangId,_key , gangsData )
 						local expireTime = GetOnscreenKeyboardResult()
 						if ( expireTime ~= nil ) then
 							expireTime = tonumber(expireTime)
-							if expireTime ~= '' and expireTime >= 0  then 
+							if expireTime ~= '' and expireTime ~= nil and expireTime >= 0  then 
 								whileGoSubMenu = false
 								TriggerServerEvent("Erfan:gang:updateGangData", gang.id , 'expireTime' , expireTime )
 								Citizen.Wait(50)
@@ -207,7 +207,7 @@ function openGangDataSubMenu(gangId,_key , gangsData )
 							local playerID = GetOnscreenKeyboardResult()
 							if ( playerID ~= nil ) then
 								playerID = tonumber(playerID)
-								if playerID ~= '' and playerID >= 0 and GetPlayerFromServerId(playerID) ~= -1 then 
+								if playerID ~= '' and playerID ~= nil and playerID >= 0 and GetPlayerFromServerId(playerID) ~= -1 then 
 									whileGoSubMenu = false
 									TriggerServerEvent("Erfan:gang:getRankForPlayer", gang.id , playerID )
 									break
@@ -266,7 +266,7 @@ function openGangBlipsSubMenu(gangId,_key )
 						local blipRadius = GetOnscreenKeyboardResult()
 						if ( blipRadius ~= nil ) then
 							blipRadius = tonumber(blipRadius)
-							if blipRadius ~= '' and blipRadius >= 0  then 
+							if blipRadius ~= '' and blipRadius ~= nil and blipRadius >= 0  then 
 								whileGoSubMenuBlips = false
 								TriggerServerEvent("Erfan:gang:updateGangData", gang.id , 'blipRadius' , blipRadius )
 								Citizen.Wait(50)
@@ -314,7 +314,7 @@ function openGangsSetttingSubMenu(gangId,_key )
 						local slotPlayer = GetOnscreenKeyboardResult()
 						if ( slotPlayer ~= nil ) then
 							slotPlayer = tonumber(slotPlayer)
-							if slotPlayer ~= '' and slotPlayer >= 0  then 
+							if slotPlayer ~= '' and slotPlayer ~= nil and slotPlayer >= 0  then 
 								whileGoSubMenuSetting = false
 								TriggerServerEvent("Erfan:gang:updateGangData", gang.id , 'slotPlayer' , slotPlayer )
 								Citizen.Wait(50)
@@ -333,7 +333,7 @@ function openGangsSetttingSubMenu(gangId,_key )
 						local maxArmor = GetOnscreenKeyboardResult()
 						if ( maxArmor ~= nil ) then
 							maxArmor = tonumber(maxArmor)
-							if maxArmor ~= '' and maxArmor >= 0  then 
+							if maxArmor ~= '' and maxArmor ~= nil and maxArmor >= 0  then 
 								whileGoSubMenuSetting = false
 								TriggerServerEvent("Erfan:gang:updateGangData", gang.id , 'maxArmor' , maxArmor )
 								Citizen.Wait(50)
