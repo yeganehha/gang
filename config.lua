@@ -61,9 +61,6 @@ Config.DrawDistance = 10 -- Distance of player and Marker to draw Marker for pla
 Config.Bulletproof = { typeNumber = 10, colorNumber = 1 } -- color and type of Bulletproof
 
 
-Config.gangVehicleDoorLock = 303 -- Button on keyboard that press, the vehicle doors locked ( https://docs.fivem.net/docs/game-references/controls/ )
-
-
 Config.OpenActionMenu = 166 -- Button on keyboard that press, the gang action menu opend ( https://docs.fivem.net/docs/game-references/controls/ )
 Config.MaxGangActionDistance = 3 -- max distance beatween Gang Memeber and player(vehicle) for drag , cuff , search and ....
 Config.handCuffAnimation = false -- hand cuff/uncuff show with animation
