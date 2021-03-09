@@ -31,7 +31,6 @@ Config.Locale = 'en'
 
 Config.adminCommand = 'gangs' -- command that open gang data for admin
 Config.adminGroup   = 'gangManager' -- ace group to access admin command
-Config.IdentifiersPlayerWith   = 'steam' -- player Identifier that save in DataBase like [ steam - license - xbl - live - discord - fivem ]
 
 
 
