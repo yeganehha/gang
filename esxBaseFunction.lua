@@ -7,6 +7,17 @@ Citizen.CreateThread(function()
 	end
 end)
 
+function getPlayerIdentifier(playerId)
+	local xPlayer = ESX.GetPlayerFromId(playerId)
+	if xPlayer then
+		return xPlayer.identifier
+	else
+		for k,v in ipairs(GetPlayerIdentifiers(playerId)) do
+			return v
+			break
+		end
+	end
+end
 
 function GetRealPlayerName(playerId)
 	local xPlayer = ESX.GetPlayerFromId(playerId)

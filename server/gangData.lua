@@ -4,13 +4,7 @@ RegisterServerEvent('Erfan:gang:getActiveGang')
 AddEventHandler('Erfan:gang:getActiveGang', function()
 	local _Source = source
 	local gangs = selectFromDB("SELECT * , DATE_FORMAT(expireTime, '%Y/%m/%d') as expireTimeFormat FROM gangs where expireTime > NOW()", {})
-	
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier then
 		TriggerClientEvent('Erfan:gang:setGangData',_Source,gangs , gang[1].gangId , gang[1].grade )
@@ -53,12 +47,7 @@ end)
 RegisterCommand("sethook", function(src, args, rawCommand)
 	if rawCommand:sub(9) then
 		local _Source = src
-		for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-			if string.match(v, Config.IdentifiersPlayerWith ) then
-				identifier = v
-				break
-			end
-		end
+		local identifier = getPlayerIdentifier(_Source)
 		local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 		if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 			executeOnDB('UPDATE `gangs` SET `discordHook` = @discordHook  WHERE id = @gangId', { 
@@ -80,12 +69,7 @@ RegisterServerEvent('Erfan:gang:depositMoney')
 AddEventHandler('Erfan:gang:depositMoney', function(amount)
 	local _Source = source
 	amount = tonumber(amount)
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 		local setMoney = setPlayerMoney(_Source,amount,'remove') 
@@ -115,12 +99,7 @@ RegisterServerEvent('Erfan:gang:withdrawMoney')
 AddEventHandler('Erfan:gang:withdrawMoney', function(amount)
 	local _Source = source
 	amount = tonumber(amount)
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 		local gangData = selectFromDB("SELECT * FROM gangs WHERE id = @id", { ['@id']  =  gang[1].gangId })
@@ -156,12 +135,7 @@ end)
 RegisterServerEvent('Erfan:gang:getRanksOfmyGang')
 AddEventHandler('Erfan:gang:getRanksOfmyGang', function()
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 		local grades = selectFromDB("SELECT * FROM gangs_grade WHERE gangId = @gangId", { ['@gangId']  = gang[1].gangId })
@@ -177,12 +151,7 @@ RegisterServerEvent('Erfan:gang:creatNewGrade')
 AddEventHandler('Erfan:gang:creatNewGrade', function(name)
 	local _Source = source
 	amount = tonumber(amount)
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 		local maxGrade = selectFromDB("SELECT MAX(grade) + 1  as garde FROM `gangs_grade` WHERE `gangId` = @gangId", { ['@gangId']  = gang[1].gangId })
@@ -210,12 +179,7 @@ RegisterServerEvent('Erfan:gang:updateGradeData')
 AddEventHandler('Erfan:gang:updateGradeData', function(gradeId , variabel , value)
 	local _Source = source
 	amount = tonumber(amount)
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 		executeOnDB('UPDATE `gangs_grade` set `'..variabel..'` = @value where gradeId = @gradeId and `gangId` = @gangId', {
@@ -236,12 +200,7 @@ end)
 RegisterServerEvent('Erfan:gang:getMembersOfmyGang')
 AddEventHandler('Erfan:gang:getMembersOfmyGang', function()
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 		local members = selectFromDB("SELECT * FROM gangs_member WHERE gangId = @gangId", { ['@gangId']  = gang[1].gangId })
@@ -258,27 +217,12 @@ end)
 
 RegisterServerEvent('Erfan:gang:addNewMember')
 AddEventHandler('Erfan:gang:addNewMember', function(gradeId , playerId)
-print(gradeId)
-print(playerId)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 		local identifier = nil
-		print(gradeId)
-		print(playerId)
-		print(GetPlayerIdentifiers(playerId))
-		for k,v in ipairs(GetPlayerIdentifiers(playerId)) do
-			if string.match(v, Config.IdentifiersPlayerWith ) then
-				identifier = v
-				break
-			end
-		end
+		identifier = getPlayerIdentifier(playerId)
 		if identifier ~= nil then
 			executeOnDB("DELETE FROM `gangs_member` WHERE `playerIdentifiers` = @playerIdentifiers", { 
 				['@playerIdentifiers']  = identifier
@@ -311,12 +255,7 @@ end)
 RegisterServerEvent('Erfan:gang:changeGradeMemberFromGang')
 AddEventHandler('Erfan:gang:changeGradeMemberFromGang', function( playerId , gradeId)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 		executeOnDB("UPDATE `gangs_member` set `grade` = @grade where playerIdentifiers = @playerIdentifiers and gangId = @gangId ", { 
@@ -326,13 +265,7 @@ AddEventHandler('Erfan:gang:changeGradeMemberFromGang', function( playerId , gra
 		} , function(e) 
 			if activeGangMember['g_'..gang[1].gangId] then
 				for _key1,gangMemberSRC in ipairs(activeGangMember['g_'..gang[1].gangId]) do
-					local identifierCheck = nil
-					for _key2,identi in ipairs(GetPlayerIdentifiers(gangMemberSRC)) do
-						if string.match(identi, Config.IdentifiersPlayerWith ) then
-							identifierCheck = identi
-							break
-						end
-					end
+					local identifierCheck = getPlayerIdentifier(gangMemberSRC)
 					if identifierCheck == playerId then
 						playerId = gangMemberSRC
 						break
@@ -351,12 +284,7 @@ end)
 RegisterServerEvent('Erfan:gang:deleteMemberFromGang')
 AddEventHandler('Erfan:gang:deleteMemberFromGang', function(playerId)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].grade == 0 then
 		local identifier = playerId
@@ -365,13 +293,7 @@ AddEventHandler('Erfan:gang:deleteMemberFromGang', function(playerId)
 		} , function(e) 
 			if activeGangMember['g_'..gang[1].gangId] then
 				for _key1,gangMemberSRC in ipairs(activeGangMember['g_'..gang[1].gangId]) do
-					local identifierCheck = nil
-					for _key2,identi in ipairs(GetPlayerIdentifiers(gangMemberSRC)) do
-						if string.match(identi, Config.IdentifiersPlayerWith ) then
-							identifierCheck = identi
-							break
-						end
-					end
+					local identifierCheck = getPlayerIdentifier(gangMemberSRC)
 					if identifierCheck == identifier then
 						table.remove( activeGangMember['g_'..gang[1].gangId] , _key1 )
 						playerId = gangMemberSRC
@@ -394,12 +316,7 @@ end)
 RegisterServerEvent('Erfan:gang:wearGang')
 AddEventHandler('Erfan:gang:wearGang', function()
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT * FROM gangs_member WHERE playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier then
 		local grade = selectFromDB("SELECT * FROM gangs_grade WHERE gangId = @gangId and grade = @grade ", { ['@gangId']  = gang[1].gangId , ['@grade']  = gang[1].grade })
@@ -416,12 +333,7 @@ end)
 RegisterServerEvent('Erfan:gang:armory_deposit')
 AddEventHandler('Erfan:gang:armory_deposit', function()
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , gg.accessArmory FROM gangs_member gm Left Join gangs_grade gg on (gg.gangId = gm.gangId and gg.grade = gm.grade )  WHERE gm.playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].accessArmory then
 		TriggerClientEvent('Erfan:gang:armory_deposit_open',_Source, OpenPlayerInventory(_Source) )
@@ -433,12 +345,7 @@ end)
 RegisterServerEvent('Erfan:gang:armory_withdraw')
 AddEventHandler('Erfan:gang:armory_withdraw', function()
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , gg.accessArmory , g.inventory FROM gangs_member gm Left Join gangs_grade gg on (gg.gangId = gm.gangId and gg.grade = gm.grade ) Left Join gangs g on (g.id = gm.gangId )  WHERE gm.playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].accessArmory then
 		TriggerClientEvent('Erfan:gang:armory_withdraw_open',_Source, json.decode(gang[1].inventory)		)
@@ -450,12 +357,7 @@ end)
 RegisterServerEvent('Erfan:gang:armory_depositing')
 AddEventHandler('Erfan:gang:armory_depositing', function(item , amount)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , gg.accessArmory , gm.gangId, g.inventory, g.discordHook FROM gangs_member gm Left Join gangs_grade gg on (gg.gangId = gm.gangId and gg.grade = gm.grade ) Left Join gangs g on (g.id = gm.gangId )  WHERE gm.playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].accessArmory  then
 		local IsItemGet = PlayerInventoryGetItem(_Source, item.itemType, item.value, amount)
@@ -495,12 +397,7 @@ end)
 RegisterServerEvent('Erfan:gang:armory_withdrawing')
 AddEventHandler('Erfan:gang:armory_withdrawing', function(item , amount)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , gg.accessArmory , gm.gangId, g.inventory, g.discordHook FROM gangs_member gm Left Join gangs_grade gg on (gg.gangId = gm.gangId and gg.grade = gm.grade ) Left Join gangs g on (g.id = gm.gangId )  WHERE gm.playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].accessArmory  then
 		local gangInventory = json.decode(gang[1].inventory) 

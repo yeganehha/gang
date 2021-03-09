@@ -7,12 +7,7 @@ end)
 RegisterNetEvent('Erfan:gang:handcuff')
 AddEventHandler('Erfan:gang:handcuff', function(target)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , g.canCuff FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].canCuff then
 		TriggerClientEvent('Erfan:gang:handcuff', target)
@@ -24,12 +19,7 @@ end)
 RegisterNetEvent('Erfan:gang:drag')
 AddEventHandler('Erfan:gang:drag', function(target)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , g.canMove FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].canMove then
 		TriggerClientEvent('Erfan:gang:drag', target , _Source)
@@ -41,12 +31,7 @@ end)
 RegisterNetEvent('Erfan:gang:putInVehicle')
 AddEventHandler('Erfan:gang:putInVehicle', function(target)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , g.canMove FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].canMove then
 		TriggerClientEvent('Erfan:gang:putInVehicle', target)
@@ -58,12 +43,7 @@ end)
 RegisterNetEvent('Erfan:gang:OutVehicle')
 AddEventHandler('Erfan:gang:OutVehicle', function(target)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , g.canMove FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].canMove then
 		TriggerClientEvent('Erfan:gang:OutVehicle',target)
@@ -79,12 +59,7 @@ end)
 RegisterServerEvent('Erfan:gang:searchBody')
 AddEventHandler('Erfan:gang:searchBody', function(target)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , g.canSearch FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].canSearch then
 		TriggerClientEvent('Erfan:gang:sendNotficationFromPlayer',target,_Source,'', ''  , _U('you_have_been_robberd') , 'CHAR_SOCIAL_CLUB' , 2 )
@@ -101,12 +76,7 @@ end)
 RegisterServerEvent('Erfan:gang:searchBodyGetItem')
 AddEventHandler('Erfan:gang:searchBodyGetItem', function(item , amount,TargetId)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , g.canSearch FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId )  WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].canSearch  then
 		local IsItemGet = PlayerInventoryGetItem(TargetId, item.itemType, item.value, amount)

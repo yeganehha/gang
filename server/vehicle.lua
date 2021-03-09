@@ -3,12 +3,7 @@ local vehicleImpoundSpawn = {}
 RegisterServerEvent('Erfan:gang:openImpoundMenu')
 AddEventHandler('Erfan:gang:openImpoundMenu', function(typeVehicle,vehicleProperties)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , gg.accessVehicle , gm.gangId FROM gangs_member gm Left Join gangs_grade gg on (gg.gangId = gm.gangId and gg.grade = gm.grade ) WHERE gm.playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].accessVehicle then
 		local canInsertToGarage = false
@@ -62,12 +57,7 @@ end
 RegisterServerEvent('Erfan:gang:addVehicle')
 AddEventHandler('Erfan:gang:addVehicle', function(vehicleProperties )
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , gg.accessVehicle , gm.gangId FROM gangs_member gm Left Join gangs_grade gg on (gg.gangId = gm.gangId and gg.grade = gm.grade ) WHERE gm.playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].accessVehicle then
 		local isReapeted = true
@@ -143,12 +133,7 @@ end)
 RegisterServerEvent('Erfan:gang:openGarage')
 AddEventHandler('Erfan:gang:openGarage', function(typeVehicle , vehicleProperties)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , gg.accessVehicle , gm.gangId FROM gangs_member gm Left Join gangs_grade gg on (gg.gangId = gm.gangId and gg.grade = gm.grade ) WHERE gm.playerIdentifiers = @playerIdentifiers", { ['@playerIdentifiers']  = identifier })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].accessVehicle then
 		local canInsertToGarage = false
@@ -170,12 +155,7 @@ end)
 RegisterServerEvent('Erfan:gang:isOwnVehicle')
 AddEventHandler('Erfan:gang:isOwnVehicle', function(plate,cb)
 	local _Source = source
-	for k,v in ipairs(GetPlayerIdentifiers(_Source)) do
-		if string.match(v, Config.IdentifiersPlayerWith ) then
-			identifier = v
-			break
-		end
-	end
+	local identifier = getPlayerIdentifier(_Source)
 	local gang = selectFromDB("SELECT gm.playerIdentifiers , gm.gangId, gv.plate FROM gangs_member gm Left Join gangs_vehicle gv on (gv.gangId = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  gv.plate = @plate ", { ['@playerIdentifiers']  = identifier , ['@plate']  = plate })
 	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier and gang[1].plate == plate then
 		TriggerClientEvent('Erfan:gang:isOwnGangVehicle', _Source , true )

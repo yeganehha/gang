@@ -3,6 +3,14 @@ function GetRealPlayerName(playerId)
 	-- Like: return Player.GetName()
 end
 
+function getPlayerIdentifier(playerId)
+	for k,v in ipairs(GetPlayerIdentifiers(playerId)) do
+		return v
+		break
+	end
+	-- return identifier of player
+end
+
 function GetOOCPlayerName(playerId)
 	return GetPlayerName(playerId)
 end

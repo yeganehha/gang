@@ -152,13 +152,7 @@ RegisterServerEvent('Erfan:gang:addPlayerToGang')
 AddEventHandler('Erfan:gang:addPlayerToGang', function(gangId , playerId , gradeId)
 	local _Source = source
 	if IsPlayerAceAllowed(_Source, "gang.admin") then
-		local identifier = nil
-		for k,v in ipairs(GetPlayerIdentifiers(playerId)) do
-			if string.match(v, Config.IdentifiersPlayerWith ) then
-				identifier = v
-				break
-			end
-		end
+		local identifier = getPlayerIdentifier(playerId)
 		if identifier ~= nil then
 			executeOnDB("DELETE FROM `gangs_member` WHERE `playerIdentifiers` = @playerIdentifiers", { 
 				['@playerIdentifiers']  = identifier

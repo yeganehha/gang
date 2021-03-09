@@ -1,13 +1,10 @@
 function payCheck()
 	local members = {}
-	print(json.encode(activeGangMember))
 	for gangId,memmbersInGang in pairs(activeGangMember) do
 		for _k,memmberId in pairs(memmbersInGang) do
-			for k,v in pairs(GetPlayerIdentifiers(memmberId)) do
-				if string.match(v, Config.IdentifiersPlayerWith ) then
-					members[v] = memmberId
-					break
-				end
+			local memberIdnti = getPlayerIdentifier(memmberId)
+			if ( memberIdnti ~= nil ) then
+				members[memberIdnti] = memmberId
 			end
 		end
 	end
