@@ -188,7 +188,7 @@ function PlayerInventoryGiveItem(player, itemType, itemName, amount)
 					return true
 				end
 			else
-				Player.addInventoryItem(itemName, amount)
+				XPlayer.addInventoryItem(itemName, amount)
 				return true
 			end
 		elseif itemType == 'account' then
