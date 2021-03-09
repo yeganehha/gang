@@ -6,7 +6,6 @@ end
 function getPlayerIdentifier(playerId)
 	for k,v in ipairs(GetPlayerIdentifiers(playerId)) do
 		return v
-		break
 	end
 	-- return identifier of player
 end

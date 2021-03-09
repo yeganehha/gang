@@ -14,7 +14,6 @@ function getPlayerIdentifier(playerId)
 	else
 		for k,v in ipairs(GetPlayerIdentifiers(playerId)) do
 			return v
-			break
 		end
 	end
 end
