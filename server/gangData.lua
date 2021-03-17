@@ -234,6 +234,7 @@ AddEventHandler('Erfan:gang:addNewMember', function(gradeId , playerId)
 					['@name']  = GetRealPlayerName(playerId),
 				} , function(e) 
 					TriggerClientEvent('Erfan:gang:setGang',playerId,gangId,gradeId)
+					TriggerEvent('Erfan:gang:setGang', playerId,gangId,gradeId)
 					if activeGangMember['g_'..gang[1].gangId] then
 						table.insert( activeGangMember['g_'..gang[1].gangId] , playerId )
 					else
