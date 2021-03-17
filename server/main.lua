@@ -93,3 +93,43 @@ AddEventHandler('Erfan:gang:searchBodyGetItem', function(item , amount,TargetId)
 		print(('^1[GNAG SYSTEM]: %s or ID: %s attempted to get Item from a player that ID:%s (not Gang)!'):format(identifier,_Source,TargetId))
 	end
 end)
+
+
+
+
+function getGangID(playerId)
+	local identifier = getPlayerIdentifier(playerId)
+	local gang = selectFromDB("SELECT gm.playerIdentifiers , g.id FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
+	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier then
+		return gang[1].id
+	else
+		return nil
+	end
+end
+function getGangGrade(playerId)
+	local identifier = getPlayerIdentifier(playerId)
+	local gang = selectFromDB("SELECT gm.playerIdentifiers , gm.grade FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
+	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier then
+		return gang[1].grade
+	else
+		return nil
+	end
+end
+function getGangName(playerId)
+	local identifier = getPlayerIdentifier(playerId)
+	local gang = selectFromDB("SELECT gm.playerIdentifiers , g.gangName FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
+	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier then
+		return gang[1].gangName
+	else
+		return nil
+	end
+end
+function getGangGradeName(playerId)
+	local identifier = getPlayerIdentifier(playerId)
+	local gang = selectFromDB("SELECT gm.playerIdentifiers , gg.name FROM gangs_member gm Left Join gangs g on (g.id = gm.gangId ) Left Join gangs_grade gg on ( gg.gangId = gm.gangId and gg.grade = gm.grade ) WHERE gm.playerIdentifiers = @playerIdentifiers and  g.expireTime > NOW()", { ['@playerIdentifiers']  = identifier })
+	if gang ~= nil and gang[1] ~= nil and gang[1].playerIdentifiers == identifier then
+		return gang[1].name
+	else
+		return nil
+	end
+end

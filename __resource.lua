@@ -43,6 +43,12 @@ export 'getGangGrade'
 export 'getGangName'
 export 'getGangGradeName'
 
+server_exports {
+	'getGangID',
+	'getGangGrade',
+	'getGangName',
+	'getGangGradeName',
+}
 
 
 server_scripts {
