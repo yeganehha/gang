@@ -1,3 +1,35 @@
+
+Citizen.CreateThread(function()
+    print("[^1"..GetCurrentResourceName().."^7] Started!")
+    if GetCurrentResourceName() ~= 'gang' then
+		print("[^1"..GetCurrentResourceName().."^7] !!^3WARNING^7!! Please rename the resoyrce from "..GetCurrentResourceName().." to 'gang'")
+    end
+    print("[^1"..GetCurrentResourceName().."^7] Performing version check...")
+    PerformHttpRequest("http://erfanebrahimi.ir/fivem/resources/checkupdates.php", function(status,result,c)
+        if status~=200 then
+            print("[^1"..GetCurrentResourceName().."^7] Version check failed!")
+        else
+            local data = json.decode(result)
+            if data and data.updateNeeded then
+                print("[^1"..GetCurrentResourceName().."^7] Outdated!")
+                print("[^1"..GetCurrentResourceName().."^7] Current version: 0.0.3.3 | New version: "..data.newVersion.." | Versions behind: "..data.versionsBehind)
+                print("[^1"..GetCurrentResourceName().."^7] Changelog:")
+                for k,v in ipairs(data.update.changelog) do
+                    print("- "..v)
+                end
+                print("[^1"..GetCurrentResourceName().."^7] Database update needed: "..(data.update.dbUpdateNeeded and "^4Yes^7" or "^1No^7"))
+                print("[^1"..GetCurrentResourceName().."^7] Config update needed: "..(data.update.configUpdateNeeded and "^4Yes^7" or "^1No^7"))
+                print("[^1"..GetCurrentResourceName().."^7] Update url: ^4"..data.update.releaseUrl.."^7")
+                if (type(data.versionsBehind)=="string" or data.versionsBehind>1) and data.update.dbUpdateNeeded then
+                    print("[^1"..GetCurrentResourceName().."^7] ^1!!^7 You are multiple versions behind, make sure you run update sql files (if any) from all new versions in order of release ^1!!^7")
+                end
+            else
+                print("[^1"..GetCurrentResourceName().."^7] No updates found!")
+            end
+        end
+    end, "POST", "resname=gang&ver=0.0.3.3")
+end)
+
 RegisterNetEvent('Erfan:gang:handcuffAnimation')
 AddEventHandler('Erfan:gang:handcuffAnimation', function(target)
 	TriggerClientEvent('Erfan:gang:handcuffAnimation', target, source)
