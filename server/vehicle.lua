@@ -1,5 +1,19 @@
 local vehicleImpoundSpawn = {}
 
+AddEventHandler('onResourceStart', function(resource)
+	if resource == GetCurrentResourceName() then
+		if Config.ParkVehicles then
+			executeOnDB('UPDATE `gangs_vehicle` SET  `stored` = true WHERE `stored` = @stored', {
+				['@stored'] = false
+			}, function(rowsChanged)
+				if rowsChanged > 0 then
+					print(('gang: %s vehicle(s) have been stored!'):format(rowsChanged))
+				end
+			end)
+		end
+	end
+end)
+
 RegisterServerEvent('Erfan:gang:openImpoundMenu')
 AddEventHandler('Erfan:gang:openImpoundMenu', function(typeVehicle,vehicleProperties)
 	local _Source = source
