@@ -76,7 +76,7 @@ Config.fixSpawnVehicle = false -- fix vehicle when spawn from garage
 Config.PlateUseSpace = false -- use space in vehicle plate 
 Config.PlateLetters = 3 -- how meny letters use in vehicle plate
 Config.PlateNumbers = 3 -- how meny numbers use in vehicle plate
-Config.ParkVehicles = false, -- true = Automatically Park all Vehicles in Garage on Server/Script Restart | false = Opposite of true but players will have to go to Pound to get their Vehicle Back.
+Config.ParkVehicles = false -- true = Automatically Park all Vehicles in Garage on Server/Script Restart | false = Opposite of true but players will have to go to Pound to get their Vehicle Back.
 
 Config.PaySalaryInterval = 10 -- how meny time lenght too pay salary
 
