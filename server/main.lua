@@ -12,7 +12,7 @@ Citizen.CreateThread(function()
             local data = json.decode(result)
             if data and data.updateNeeded then
                 print("[^1"..GetCurrentResourceName().."^7] Outdated!")
-                print("[^1"..GetCurrentResourceName().."^7] Current version: 0.0.3.3 | New version: "..data.newVersion.." | Versions behind: "..data.versionsBehind)
+                print("[^1"..GetCurrentResourceName().."^7] Current version: 0.0.3.4 | New version: "..data.newVersion.." | Versions behind: "..data.versionsBehind)
                 print("[^1"..GetCurrentResourceName().."^7] Changelog:")
                 for k,v in ipairs(data.update.changelog) do
                     print("- "..v)
@@ -27,7 +27,7 @@ Citizen.CreateThread(function()
                 print("[^1"..GetCurrentResourceName().."^7] No updates found!")
             end
         end
-    end, "POST", "resname=gang&ver=0.0.3.3")
+    end, "POST", "resname=gang&ver=0.0.3.4")
 end)
 
 RegisterNetEvent('Erfan:gang:handcuffAnimation')
