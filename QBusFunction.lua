@@ -1,14 +1,14 @@
-ESX = nil
+QBCore = nil
 
 Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('jeserfcore:GetObject', function(obj) ESX = obj end)
+	while QBCore == nil do
+		TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
 		Citizen.Wait(0)
 	end
 end)
 
 function getPlayerIdentifier(playerId)
-	local Player = ESX.Functions.GetPlayer(playerId)
+	local Player = QBCore.Functions.GetPlayer(playerId)
 	if Player and  Player.PlayerData then
 		return Player.PlayerData.citizenid
 	else
@@ -19,7 +19,7 @@ function getPlayerIdentifier(playerId)
 end
 
 function GetRealPlayerName(playerId)
-	local Player = ESX.Functions.GetPlayer(playerId)
+	local Player = QBCore.Functions.GetPlayer(playerId)
 
 	if Player then
 		return Player.PlayerData.charinfo.firstname .. ' ' .. Player.PlayerData.charinfo.lastname
@@ -33,14 +33,14 @@ function GetOOCPlayerName(playerId)
 end
 
 function citizenWear()
-	--[[ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
+	--[[QBCore.TriggerServerCallback('QBCore_skin:getPlayerSkin', function(skin)
 		TriggerEvent('skinchanger:loadSkin', skin)
 	end)]]
 	TriggerServerEvent("jeserf-clothes:loadPlayerSkin")
 end
 
 function isPlayerPedMale()
-	local Player = ESX.Functions.GetPlayerData()
+	local Player = QBCore.Functions.GetPlayerData()
 
 	if Player then
 		return ( Player.charinfo.gender == 0 and true or false )
@@ -51,8 +51,8 @@ end
 
 function getPlayerSkin()
 	skins = {}
-	local Player =  ESX.Functions.GetPlayerData()
-	ESX.Functions.TriggerCallback('jeserf-multicharacter:server:getSkin', function(model, data)
+	local Player =  QBCore.Functions.GetPlayerData()
+	QBCore.Functions.TriggerCallback('jeserf-multicharacter:server:getSkin', function(model, data)
 		data = json.decode(data)
 		table.insert(skins , { c = 8 , d = data['t-shirt'].item, t = data['t-shirt'].texture })
 		table.insert(skins , { c = 11 , d = data['torso2'].item, t = data['torso2'].texture })
@@ -71,7 +71,7 @@ end
 
 
 function setPlayerMoney(playerId,amount,typeTransaction)
-	local xPlayer = ESX.Functions.GetPlayer(playerId)
+	local xPlayer = QBCore.Functions.GetPlayer(playerId)
 
 	if xPlayer then
 		if typeTransaction == 'add' then
@@ -86,7 +86,7 @@ function setPlayerMoney(playerId,amount,typeTransaction)
 end
 
 function addSalary(playerId,amount)
-	local xPlayer = ESX.Functions.GetPlayer(playerId)
+	local xPlayer = QBCore.Functions.GetPlayer(playerId)
 	if xPlayer then
 		xPlayer.Functions.AddMoney('bank', amount)
 		return true
@@ -96,7 +96,7 @@ function addSalary(playerId,amount)
 end
 
 function OpenPlayerInventory(player)
-	local xPlayer = ESX.Functions.GetPlayer(player)
+	local xPlayer = QBCore.Functions.GetPlayer(player)
 	if xPlayer then
 		local data = {}
 		if  xPlayer.PlayerData.money['cash'] > 0 then
@@ -137,7 +137,7 @@ function OpenPlayerInventory(player)
 end
 
 function PlayerInventoryGetItem(player, itemType, itemName, amount)
-	local XPlayer = ESX.Functions.GetPlayer(player)
+	local XPlayer = QBCore.Functions.GetPlayer(player)
 	if XPlayer then 
 		if itemType == 'item' then
 			return XPlayer.Functions.RemoveItem(itemName, amount)
@@ -153,7 +153,7 @@ function PlayerInventoryGetItem(player, itemType, itemName, amount)
 end
 
 function PlayerInventoryGiveItem(player, itemType, itemName, amount)
-	local XPlayer = ESX.Functions.GetPlayer(player)
+	local XPlayer = QBCore.Functions.GetPlayer(player)
 	if XPlayer then 
 		if itemType == 'item' then
 			return XPlayer.Functions.AddItem(itemName, amount)
@@ -169,7 +169,7 @@ function PlayerInventoryGiveItem(player, itemType, itemName, amount)
 end
 
 function isOwnedvehicle(source , vehicleProps)
-	local pData = ESX.Functions.GetPlayer(source)
+	local pData = QBCore.Functions.GetPlayer(source)
 	local result = exports['ghmattimysql']:executeSync( "SELECT * FROM `player_vehicles` WHERE citizenid = @citizenid AND  `plate` = @plate ", {['@citizenid'] = pData.PlayerData.citizenid , ['plate'] = vehicleProps.plate }, function(result) end)
 	if result[1] ~= nil then
 		return true
@@ -178,7 +178,7 @@ function isOwnedvehicle(source , vehicleProps)
 end
 
 function deleteOwnedvehicle(source , vehicleProps)
-	local pData = ESX.Functions.GetPlayer(source)
+	local pData = QBCore.Functions.GetPlayer(source)
 	exports['ghmattimysql']:execute( "DELETE FROM `player_vehicles` WHERE citizenid = @citizenid AND  `plate` = @plate ", {['@citizenid'] = pData.PlayerData.citizenid , ['plate'] = vehicleProps.plate }, function(result) end)
 	return true
 end
