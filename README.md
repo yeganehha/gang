@@ -109,3 +109,4 @@ This program Is distributed In the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy Of the GNU General Public License along with this program. If Not, see http://www.gnu.org/licenses/.
 
 ![](https://komarev.com/ghpvc/?username=yeganehha-allrepo&label=Repositories%20views&color=0e75b6&style=flat)
+![](https://komarev.com/ghpvc/?username=yeganehha-gangrepo&label=Repositories%20views&color=0e75b6&style=flat)
